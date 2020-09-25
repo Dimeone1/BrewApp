@@ -53,6 +53,7 @@ def search_for_key(key, searchdata, searchlist):
         print(f"No matching records found matching {searchdata} in {key}")
 
 
+
 #json test - could add further processing here
 def parse_json(rawjson):
     print(rawjson)
@@ -150,6 +151,7 @@ def load_json(filename = storage_file):
 
 #load previous data from storage file
 people_drinks = load_json()
+round_handler = RH.Round_Handler(people_drinks)
 
 #begin main method loop
 while True:
@@ -160,7 +162,7 @@ while True:
 
     
     #reset return state
-    round_handler = RH.Round_Handler()
+    round_handler.update_drink_preferences(people_drinks)
     table_handler = TH.TableHandler()
 
 

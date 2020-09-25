@@ -4,9 +4,10 @@ from ..persistance import json_storage as Storage
 import os
 
 class Round_Handler():
-    def __init__(self):
+    def __init__(self, preferences):
         self.previous_rounds = []
         self.Table_Handler = TH.TableHandler("Table_Handler_Rounds")
+        self.preferences = preferences
 
     def get_previous_rounds(self):
         return self.previous_rounds
@@ -15,6 +16,9 @@ class Round_Handler():
         self.previous_rounds.append(round)
         os.system("cls")
         print("Creating a new round")
+
+    def update_drink_preferences(self, preferences):
+        self.preferences = preferences
 
     def round_menu(self):
         list_of_inputs=["0","1", "2"]
