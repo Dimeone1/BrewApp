@@ -47,8 +47,8 @@ class Test_Methods(unittest.TestCase):
 
         print("pad edge s case") 
     
-    @unittest.mock.patch("models.handlers.TableHandler")
-    def test_print_seperator(self):
+    @patch("models.handlers.TableHandler")
+    def test_print_seperator(self, mock_TableHandler):
 
         expected = None
 
