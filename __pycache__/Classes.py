@@ -117,12 +117,7 @@ class TableHandler():
         return stringlist
 
     #DONE
-    def __print_seperator__(self):
-        self.seperator_string = self.capchar
-        while len(self.seperator_string)<self.size-5:
-            self.seperator_string +=self.linechar
-        self.seperator_string +=self.capchar
-        print(self.seperator_string)
+    
     
     #DONE
     def __print_line__(self, string):

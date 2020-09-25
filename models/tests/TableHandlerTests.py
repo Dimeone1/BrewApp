@@ -47,10 +47,16 @@ class Test_Methods(unittest.TestCase):
 
         print("pad edge s case") 
     
-    @patch("models.handlers.TableHandler")
-    def test_print_seperator(self, mock_TableHandler):
+    @patch("builtins.print")
+    def test_print_seperator(self, mock_print):
+        #Arrange
+        testSize = 10
+        testSeperator = "+====+"
+        #Act
+        self.test.__print_seperator__(testSize)
 
-        expected = None
+        #Assert
+        mock_print.assert_called_once_with(testSeperator)
 
 
 if __name__ == "__main__":
