@@ -52,27 +52,6 @@ def search_for_key(key, searchdata, searchlist):
     else:
         print(f"No matching records found matching {searchdata} in {key}")
 
-def test_search_key_s():
-    #Arrange
-    key = "drink"
-    searchdata = "cola"
-    searchlist = [{"name":"Nathan", "drink":"cola"}] 
-    #Act
-    result = search_for_key(key, searchdata, searchlist)
-    #Assert
-    assert result == [{"name":"Nathan", "drink":"cola"}]
-    print("search key found case success")
-
-def test_search_key_f():
-    #Arrange
-    key = "drink"
-    searchdata = "cola"
-    searchlist = [{"name":"Nathan", "drink":"Cola"}] 
-    #Act
-    result = search_for_key(key, searchdata, searchlist)
-    #Assert
-    assert result == None
-    print("search key fail case success")
 
 #json test - could add further processing here
 def parse_json(rawjson):

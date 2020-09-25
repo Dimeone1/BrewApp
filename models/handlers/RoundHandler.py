@@ -1,5 +1,6 @@
 from ..handlers import TableHandler as TH
 from ..core import Round as R
+from ..persistance import json_storage as Storage
 import os
 
 class Round_Handler():
