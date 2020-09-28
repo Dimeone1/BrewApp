@@ -35,6 +35,8 @@ class Round_Handler():
                 break
             elif menu_in == list_of_inputs[1]:
                 new_round = R.Round()
+                print("Please Enter the name of the user you would like to add to the round:\n")
+
                 new_round.create_order()
                 new_round.assign_brewer()
                 self.add_round_to_manager(new_round)

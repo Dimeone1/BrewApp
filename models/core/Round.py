@@ -25,14 +25,16 @@ class Round():
     def create_order(self):
         drink = ""
         person = ""
+
         order = {"drink": drink, "name": person}
         self.round_data.append(order)
 
     def assign_brewer(self):
+        is_valid = False
         person = input ("Please enter the name of the desired brewer")
-        for x in self.round_data:
-            for y in x:
-                if y.get("name") == person:
-                    is_valid = True
-        if is_valid:
-            self.brewer = person
+        while is_valid == False:
+            for x in self.round_data:
+                for y in x:
+                    if y.get("name") == person:
+                        is_valid = True
+        self.brewer = person
