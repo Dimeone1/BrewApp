@@ -34,11 +34,19 @@ class Round_Handler():
             if menu_in == list_of_inputs[0]:
                 break
             elif menu_in == list_of_inputs[1]:
+                finalize_round = False
                 new_round = R.Round()
-                print("Please Enter the name of the user you would like to add to the round:\n")
 
-                new_round.create_order()
+                while finalize_round == False:
+                    print("Please Enter the name of the user you would like to add to the round:\n")
+                    name = input()
+
+                    new_round.create_order()
+                    
                 new_round.assign_brewer()
+
+
+
                 self.add_round_to_manager(new_round)
             elif menu_in == list_of_inputs[2]:
                 previous = self.get_previous_rounds()
