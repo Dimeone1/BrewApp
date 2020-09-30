@@ -11,15 +11,18 @@ class DBHandler():
     def fetchAllResults(self, table="drink"):
 
         connection = pymysql.connect(
-            self.host,
-            self.port,
-            self.user,
-            self.word,
-            self.db
+            host = self.host,
+            user = self.user,
+            password = self.word,
+            database = self.db,
+            port = self.port
         )
+
         cursor = connection.cursor()
-        cursor.excute(f"SELECT * FROM {table}")
+        print("Connection with database established")
+        cursor.execute(f"SELECT * FROM {table}")
         results = cursor.fetchall()
+
         if len(results) !=0:
             for result in results:
                 for atribute in result:

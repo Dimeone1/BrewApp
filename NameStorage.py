@@ -5,6 +5,7 @@ import json
 import os
 from models.handlers import RoundHandler as RH
 from models.handlers import TableHandler as TH
+from models.persistance import sql_db as DB
 
 #create initial blank list of dictionaries - filled from JSON later
 people_drinks = []
@@ -152,6 +153,7 @@ def load_json(filename = storage_file):
 #load previous data from storage file
 people_drinks = load_json()
 round_handler = RH.Round_Handler(people_drinks)
+db_handler = DB.DBHandler()
 
 #begin main method loop
 while True:
@@ -180,6 +182,8 @@ while True:
     [5] - Edit an existing record
     [6] - Rounds
     [0] - Exit""")
+
+    db_handler.fetchAllResults()
 
     #get command from user
     user_in = input()
