@@ -1,6 +1,6 @@
-import ..ETL_task.extract as extract
-import ..ETL_task.transform as transform
-import ..ETL_task.load as load
+import extract as extract
+import transform as transform
+import load as load
 
 filename = "ETL_TASK/Import_User_Sample_en.csv"
 
