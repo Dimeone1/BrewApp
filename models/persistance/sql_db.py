@@ -29,3 +29,29 @@ class DBHandler():
                     print(atribute)
         else:
             print("No Results Found in table")
+    
+    def addResultToTable(self, attributes, values, table):
+
+        sqlstring = f"INSERT INTO {table}("
+
+        for att in attributes:
+            if att == attributes[-1]:
+                sqlstring +=f"{att})"
+            else:
+                sqlstring +=f"{att}, "
+
+        print("DEBUG: SQL String after column add: " + sqlstring)
+
+        sqlstring += " VALUES ("
+        for val in values:
+            if val == values[-1]:
+                sqlstring +=f"{val})"
+            else:
+                sqlstring +=f"{val}, "
+
+        print("DEBUG: SQL string after values add: " + sqlstring)
+
+
+        
+
+
