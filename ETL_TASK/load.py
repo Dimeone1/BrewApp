@@ -1,7 +1,7 @@
 import pymysql
 
 def connectToDB(sql_query):
-    print("Connecting to database at localhost:8080")
+    print("Connecting to database at localhost:33066")
 
 def addToDB(records):
     print("Adding records to database")
@@ -31,9 +31,9 @@ def addResultToTable(attributes, values, table):
         sqlstring += " VALUES ("
         for val in values:
             if val == values[-1]:
-                sqlstring +=f"{val})"
+                sqlstring +=f'"{val}")'
             else:
-                sqlstring +=f"{val}, "
+                sqlstring +=f'"{val}", '
 
         print("DEBUG: SQL string after values add: " + sqlstring)
         connection = pymysql.connect(
@@ -41,7 +41,7 @@ def addResultToTable(attributes, values, table):
             user = "root",
             password = "password",
             database = "ETL",
-            port = 8080,
+            port = 33066,
             autocommit = True
         )
         print("Connection with database established")
