@@ -23,10 +23,16 @@ pad_char = " "
 
 #SQL DB table names
 DRINKTABLENAME = "drink"
+DRINKATTRIBUTES = ["name ", "isAlcoholic ", "price "]
 PERSONTABLENAME = "person"
+PERSONATTRIBUTES = ["fname ", "sname ", "age "]
 ROUNDTABLENAME = "round"
+ROUNDATTRIBUTES = ["RID ", "PID ", "DID"]
 PREFERENCETABLENAME = "preference"
+PREFERENCEATTRIBUTES = ["PID ", "DID "]
 
+#0 for person join, #1 for drink join
+JoinedTablesDictList = [["person",{"key": "PID"}],["drink",{"key": "DID"}]]
 #JSON storage file
 storage_file = "storage.txt"
 
@@ -43,6 +49,7 @@ def add_record(name, drink):
     new_record = {"name":name, "drink":drink}
     people_drinks.append(new_record)
     save_json(people_drinks)
+
 
 #search through a list to find each record with a matching key value
 def search_for_key(key, searchdata, searchlist):
@@ -189,9 +196,6 @@ while True:
     [6] - Rounds
     [0] - Exit""")
 
-    db_handler.fetchAllResultsFromTable(DRINKTABLENAME)
-    db_handler.fetchAllResultsFromTable(PERSONTABLENAME)
-
     #get command from user
     user_in = input()
 
@@ -204,11 +208,21 @@ while True:
         table_handler.print_query(people_drinks, "Drinks")
     #add a new record
     elif user_in == accepted_commands[3]:
-        print("Please input a name: \n")
-        name = input()
-        print("Please input a drink:\n")
-        drink = input()
-        add_record(name, drink)
+        print("Please input a first name: \n")
+        fname = input()
+        print("Please input a surname:\n")
+        sname = input()
+        age = ""
+        while type(age) == str:
+            print("Please input the age:\n")
+            age = input()
+            try:
+                age = int(age)
+            except ValueError as e:
+                print("Error inputting age, please input a numerical value")
+        values = [fname,sname,age]
+
+        db_handler.addResultToTable(PERSONTABLENAME, PERSONATTRIBUTES, values)
     #search records
     elif user_in == accepted_commands[4]:
         print("Please input search data: , enter * to list all person/drink records\n")
