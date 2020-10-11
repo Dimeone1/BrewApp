@@ -40,11 +40,54 @@ class DBHandler():
         cursor = connection.cursor()
         print("Cursor established")
         cursor.execute(sqlstring)
-        connection.commit()
         print("Executing SQL string")
         cursor.close()
         print("closing cursor")
         connection.close()
         print("closing database connection")
+    
+    def fetchAllResultsFromTable(self, table):
+        sqlstring = f"SELECT * FROM {table}"
+        connection = pymysql.connect(
+            host = "localhost",
+            user = "root",
+            password = "password",
+            database = "ETL",
+            port = 33066,
+            autocommit = True
+        )
+        print("Connection with database established")
+        cursor = connection.cursor()
+        print("Cursor established")
+        cursor.execute(sqlstring)
+        print("Executing SQL string")
+        results = cursor.fetchall()
+        cursor.close()
+        print("closing cursor")
+        connection.close()
+        print("closing database connection")
+        return results
+
+    def fetchSingleResultFromTable(self,table,targetval,targetatt):
+        sqlstring = f"SELECT * FROM {table} WHERE {targetval} = {targetatt}"
+        connection = pymysql.connect(
+            host = "localhost",
+            user = "root",
+            password = "password",
+            database = "ETL",
+            port = 33066,
+            autocommit = True
+        )
+        print("Connection with database established")
+        cursor = connection.cursor()
+        print("Cursor established")
+        cursor.execute(sqlstring)
+        print("Executing SQL string")
+        results = cursor.fetchall()
+        cursor.close()
+        print("closing cursor")
+        connection.close()
+        print("closing database connection")
+        return results
 
 

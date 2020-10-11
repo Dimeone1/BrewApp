@@ -21,6 +21,12 @@ cap_char = "+"
 edge_char = "|"
 pad_char = " "
 
+#SQL DB table names
+DRINKTABLENAME = "drink"
+PERSONTABLENAME = "person"
+ROUNDTABLENAME = "round"
+PREFERENCETABLENAME = "preference"
+
 #JSON storage file
 storage_file = "storage.txt"
 
@@ -183,7 +189,8 @@ while True:
     [6] - Rounds
     [0] - Exit""")
 
-    db_handler.fetchAllResults()
+    db_handler.fetchAllResultsFromTable(DRINKTABLENAME)
+    db_handler.fetchAllResultsFromTable(PERSONTABLENAME)
 
     #get command from user
     user_in = input()
