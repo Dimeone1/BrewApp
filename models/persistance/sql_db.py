@@ -7,32 +7,10 @@ class DBHandler():
         self.user = user
         self.word = word
         self.db = db
-    
-    def fetchAllResults(self, table="drink"):
+      
+    def addResultToTable(self, table, attributes, values):
 
-        connection = pymysql.connect(
-            host = self.host,
-            user = self.user,
-            password = self.word,
-            database = self.db,
-            port = self.port
-        )
-
-        cursor = connection.cursor()
-        print("Connection with database established")
-        cursor.execute(f"SELECT * FROM {table}")
-        results = cursor.fetchall()
-
-        if len(results) !=0:
-            for result in results:
-                for atribute in result:
-                    print(atribute)
-        else:
-            print("No Results Found in table")
-    
-    def addResultToTable(self, attributes, values, table):
-
-        sqlstring = f"INSERT INTO {table}("
+        sqlstring = f"INSERT INTO {table} ("
 
         for att in attributes:
             if att == attributes[-1]:
@@ -45,13 +23,28 @@ class DBHandler():
         sqlstring += " VALUES ("
         for val in values:
             if val == values[-1]:
-                sqlstring +=f"{val})"
+                sqlstring +=f'"{val}")'
             else:
-                sqlstring +=f"{val}, "
+                sqlstring +=f'"{val}", '
 
         print("DEBUG: SQL string after values add: " + sqlstring)
-
-
-        
+        connection = pymysql.connect(
+            host = "localhost",
+            user = "root",
+            password = "password",
+            database = "ETL",
+            port = 33066,
+            autocommit = True
+        )
+        print("Connection with database established")
+        cursor = connection.cursor()
+        print("Cursor established")
+        cursor.execute(sqlstring)
+        connection.commit()
+        print("Executing SQL string")
+        cursor.close()
+        print("closing cursor")
+        connection.close()
+        print("closing database connection")
 
 
