@@ -190,10 +190,11 @@ while True:
     print("""Please select an option by using a number
     [1] - View all people  
     [2] - View all drinks 
-    [3] - Add a record
-    [4] - Search for a record
-    [5] - Edit an existing record
+    [3] - Add a Person
+    [4] - Add a Drink
+    [5] - Add a Preference
     [6] - Rounds
+    [7] - Search for a Person, Drink or Preference
     [0] - Exit""")
 
     #get command from user
@@ -225,47 +226,28 @@ while True:
         db_handler.addResultToTable(PERSONTABLENAME, PERSONATTRIBUTES, values)
     #search records
     elif user_in == accepted_commands[4]:
-        print("Please input search data: , enter * to list all person/drink records\n")
-        search_string = input()
-        search_results = []
-        while back_to_menu ==False:
-            if search_string == "*":
-                table_handler.print_query(people_drinks,"All Person/Drink preferences") 
-                input("\n Press any key to return to the main menu\n")
-                #escape condition
-                back_to_menu = True              
-            elif search_string != "":
-                while back_to_menu == False:
-                    print("Press [1] if you are searching for a person, press [2] if you are searching for a drink")
-                    tmp = input()
-                    #set search type based on user input
-                    #search for name
-                    if tmp == "1":
-                        search_results = search_for_key("name", search_string, people_drinks)
-                        if search_results != None:
-                            while back_to_menu == False:
-                                table_handler.print_query(search_results, f"Search Results for name: {search_string}")
-                                input("\nPress any key to return to the main menu\n")
-                                back_to_menu = True
-                        else:
-                            print(f"No results for for name: {search_string}")
-                            input("\nPress any key to return to the main menu\n")
-                            back_to_menu = True
-                    #search for drink
-                    elif tmp == "2":
-                        search_results = search_for_key("drink", search_string, people_drinks)
-                        if search_results != None:
-                            while back_to_menu == False:
-                                table_handler.print_query(search_results, f"Search Results for name: {search_string}")
-                                input("\nPress any key to return to the main menu\n")
-                                back_to_menu = True
-                        else:
-                            print(f"No results for for drink: {search_string}")
-                    else:
-                        print("invalid search type, please enter [1] or [2]")
-            else:
-                print("Cannot search for null data, please enter a search string\n")
-                search_string = input()
+        print("Please input a drink name: \n")
+        name = input()
+        while True: 
+            print("Enter 1 if the drink is alcoholic, enter 0 if it isnt:\n")
+            isAlcoholic = input()
+            if isAlcoholic == "1":
+                isAlcoholic = 1
+                break
+            elif isAlcoholic == "0":
+                isAlcoholic = 0
+                break
+        price = ""
+        while type(price) == str:
+            print("Please input the cost of the drink:\n")
+            price = input()
+            try:
+                price = float(price)
+            except ValueError as e:
+                print("Error inputting price, please input a decimal value")
+        values = [name,isAlcoholic,price]
+
+        db_handler.addResultToTable(DRINKTABLENAME, DRINKATTRIBUTES, values)
     #edit an existing record
     elif user_in ==accepted_commands[5]:
         search_results = []

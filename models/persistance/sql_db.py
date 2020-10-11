@@ -11,18 +11,19 @@ class DBHandler():
     def addResultToTable(self, table, attributes, values):
 
         sqlstring = f"INSERT INTO {table} ("
-
-        for att in attributes:
-            if att == attributes[-1]:
+        length = len(attributes)-1
+        for index, att in enumerate(attributes):
+            if index == length:
                 sqlstring +=f"{att})"
             else:
                 sqlstring +=f"{att}, "
 
         print("DEBUG: SQL String after column add: " + sqlstring)
 
+        length = len(values)-1
         sqlstring += " VALUES ("
-        for val in values:
-            if val == values[-1]:
+        for index, val in enumerate(values):
+            if index == length:
                 sqlstring +=f'"{val}")'
             else:
                 sqlstring +=f'"{val}", '
