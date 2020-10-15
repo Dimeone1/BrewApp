@@ -6,6 +6,8 @@
 
 - To install all required python modules run `pip install -r requirements.txt` from the root of the repo
 
+-- To install run: pip install -r requirements.txt.
+
 ### Virtual Environment
 
 The project includes a virtual environment, to activate it run `Source venv/Scripts/activate.bat` from the root of the repo
