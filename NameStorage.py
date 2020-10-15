@@ -1,5 +1,4 @@
-#Author: Nathan Welham
-#Last Edited: 15/09/2020
+
 #initial environment setup
 import json 
 import os
@@ -26,8 +25,6 @@ DRINKTABLENAME = "drink"
 DRINKATTRIBUTES = ["name ", "isAlcoholic ", "price "]
 PERSONTABLENAME = "person"
 PERSONATTRIBUTES = ["fname ", "sname ", "age "]
-ROUNDTABLENAME = "round"
-ROUNDATTRIBUTES = ["RID ", "PID ", "DID"]
 PREFERENCETABLENAME = "preference"
 PREFERENCEATTRIBUTES = ["PID ", "DID "]
 
@@ -74,75 +71,75 @@ def parse_json(rawjson):
 
 
 #function to edit a users data if there is only a single user with that name  
-def editusersingle(curname,changedval, changekey):
-    #find the occurance of that user
-    for x in people_drinks:
-        if x["name"] == curname:
-            x[changekey] = changedval
-            print(f"Changed key: {changekey} to value: {changedval} in name: {curname}")
-    #update the JSON        
-    save_json(people_drinks)
+# def editusersingle(curname,changedval, changekey):
+#     #find the occurance of that user
+#     for x in people_drinks:
+#         if x["name"] == curname:
+#             x[changekey] = changedval
+#             print(f"Changed key: {changekey} to value: {changedval} in name: {curname}")
+#     #update the JSON        
+#     save_json(people_drinks)
 
-def editusersmulti(sr):
-    edited = False
-    while edited == False:
-        #store length of search result list to minimize repeated execution
-        bound = len(search_results)
-        #debug messages, no longer used
-        # print(search_results)
-        # print(f"{bound} users found with that name\n")
+# def editusersmulti(sr):
+#     edited = False
+#     while edited == False:
+#         #store length of search result list to minimize repeated execution
+#         bound = len(search_results)
+#         #debug messages, no longer used
+#         # print(search_results)
+#         # print(f"{bound} users found with that name\n")
 
-        #clear terminal
-        os.system("cls")
-        #loop until break condition
-        while edited == False:
-            count = 0
-            #unpack search results list
-            for x in sr:
-                count +=1
-                name = x.get("name")
-                drink = x.get("drink")
-                print(f"[{count}] Name: {name} Favourite drink: {drink}")            
-            print("\n Press the number for the record you would like to edit")        
-            try:
-                #reduce number by 1 to get correct index
-                tar = int(input())-1  
-                if tar<len(search_results) and tar>=0:
-                    tardict = sr[tar]
-                    for y in people_drinks:
-                        #ensure record matches desired record, not just name
-                        if y.get("name") == tardict.get("name"):
-                            if y.get("drink") == tardict.get("drink"):
-                                print("Record found in main database\n")
-                                os.system("cls")
-                                print(f"Editing record name: {y.get('name')} favourite drink {y.get('drink')}")
-                                while edited == False:
-                                    print("Press [1] if you would like to change the user's name\n [2] if you would like to change their favourite drink\n \nPress any other key to return to the main menu\n")
-                                    tmp = input()
-                                    #change name
-                                    if tmp == "1":
-                                        print("Please input the desired name change\n")
-                                        updated = input()
-                                        y["name"] = updated
-                                        edited =True 
-                                    #change drink   
-                                    elif tmp == "2":
-                                        print("Please input the desired drink change\n")
-                                        updated = input()
-                                        y["drink"] = updated
-                                        edited = True
-                                    #return to menu
-                                    else:
-                                        edited = True
-                                        break
-                else:
-                    print(f"Please enter a valid search result from between [1] and [{bound}]")   
-            except ValueError:
-                print("An error has occured, Press any key to refresh search results & ensure your input is only a number")
-                #print(e)
-                input()
-    os.system("cls")    
-    save_json(people_drinks)
+#         #clear terminal
+#         os.system("cls")
+#         #loop until break condition
+#         while edited == False:
+#             count = 0
+#             #unpack search results list
+#             for x in sr:
+#                 count +=1
+#                 name = x.get("name")
+#                 drink = x.get("drink")
+#                 print(f"[{count}] Name: {name} Favourite drink: {drink}")            
+#             print("\n Press the number for the record you would like to edit")        
+#             try:
+#                 #reduce number by 1 to get correct index
+#                 tar = int(input())-1  
+#                 if tar<len(search_results) and tar>=0:
+#                     tardict = sr[tar]
+#                     for y in people_drinks:
+#                         #ensure record matches desired record, not just name
+#                         if y.get("name") == tardict.get("name"):
+#                             if y.get("drink") == tardict.get("drink"):
+#                                 print("Record found in main database\n")
+#                                 os.system("cls")
+#                                 print(f"Editing record name: {y.get('name')} favourite drink {y.get('drink')}")
+#                                 while edited == False:
+#                                     print("Press [1] if you would like to change the user's name\n [2] if you would like to change their favourite drink\n \nPress any other key to return to the main menu\n")
+#                                     tmp = input()
+#                                     #change name
+#                                     if tmp == "1":
+#                                         print("Please input the desired name change\n")
+#                                         updated = input()
+#                                         y["name"] = updated
+#                                         edited =True 
+#                                     #change drink   
+#                                     elif tmp == "2":
+#                                         print("Please input the desired drink change\n")
+#                                         updated = input()
+#                                         y["drink"] = updated
+#                                         edited = True
+#                                     #return to menu
+#                                     else:
+#                                         edited = True
+#                                         break
+#                 else:
+#                     print(f"Please enter a valid search result from between [1] and [{bound}]")   
+#             except ValueError:
+#                 print("An error has occured, Press any key to refresh search results & ensure your input is only a number")
+#                 #print(e)
+#                 input()
+#     os.system("cls")    
+#     save_json(people_drinks)
 
 def save_json(data = "", file = storage_file):
     if data == "":
@@ -248,39 +245,45 @@ while True:
         values = [name,isAlcoholic,price]
 
         db_handler.addResultToTable(DRINKTABLENAME, DRINKATTRIBUTES, values)
-    #edit an existing record
+    #PREFERENCE
     elif user_in ==accepted_commands[5]:
-        search_results = []
-        print("Please input the name of the user you would like to edit")
-        search_string = input()
-        #check if record exists
-        search_results = search_for_key("name", search_string, people_drinks)
-        if len(search_results)>0:
-            #easy solution if only 1 name
-            if len(search_results) ==1:
-                while back_to_menu == False:
-                    print("1 user found with that name")
-                    print(search_results)
-                    print("Press [1] if you would like to change the user's name\n [2] if you would like to change their favourite drink\n \nPress any other key to return to the main menu\n")
-                    tmp = input()
-                    if tmp == "1":
-                        print("Please input the desired name change\n")
-                        updated = input()
-                        editusersingle(search_string, updated,"name")
-                        break    
-                    elif tmp == "2":
-                        print("Please input the desired drink change\n")
-                        updated = input()
-                        editusersingle(search_string, updated, "drink")
-                        break
-                    else:
-                        back_to_menu = True                
-            else:
-                editusersmulti(search_results)
-        else:
-            print(f"No users found with the name: {search_string}")
+        people = db_handler.fetchAllResultsFromTable(PERSONTABLENAME)
+        drinks = db_handler.fetchAllResultsFromTable(DRINKTABLENAME)
+        
+        prefPID = ""
+        while prefPID == "":
+            os.system('cls')
+            for person in people:
+                print(f"PID: {person[0]}")
+                for index, atr in enumerate(PERSONATTRIBUTES):           
+                    print(f"{atr}: {person[index + 1]}")
+
+            targetID = input("Please Enter a PID for the user you would like to add a preference for: \n")
+            try:
+                prefPID = int(targetID)
+                input(f"Selected ID: {prefPID}, press enter to continue")
+            except ValueError:
+                print("Please Enter a valid Integer PID. Press enter to select again")
+
+        prefDID = ""
+        while prefDID == "":
+            os.system('cls')
+            for drink in drinks:
+                print(f"DID: {drink[0]}")
+                for index, atr in enumerate(DRINKATTRIBUTES):
+                    print(f"{atr}: {drink[index + 1]}")
+
+            targetID = input("Please Enter a DID for the user you would like to add a preference for: \n")
+            try:
+                prefDID = int(targetID)
+                input(f"Selected ID: {prefDID}, press enter to continue")
+            except ValueError:
+                print("Please Enter a valid Integer DID. Press enter to select again")
+
+        values = [prefPID, prefDID]  
+        db_handler.addResultToTable(PREFERENCETABLENAME, PREFERENCEATTRIBUTES, values)
     elif user_in == accepted_commands[6]:
-        #order_round()
+        round_handler.round_menu(db_handler)
         back_to_menu = True
     elif user_in == accepted_commands[0]:
         save_json(people_drinks)

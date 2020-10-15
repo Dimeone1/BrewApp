@@ -21,20 +21,33 @@ class Round():
 
     def get_round_data(self):
         return self.round_data
-    
-    def create_order(self):
-        drink = ""
-        person = ""
 
-        order = {"drink": drink, "name": person}
+    def get_brewer(self):
+        return self.brewer
+    
+    def create_order(self, person , drink):
+
+        order = {"PID": person, "DID": drink}
         self.round_data.append(order)
 
     def assign_brewer(self):
         is_valid = False
-        person = input ("Please enter the name of the desired brewer")
+        while True:
+            person = input ("Please enter the ID of the desired brewer")
+            try:
+                person = int(person)
+                break
+            except ValueError:
+                print("Please Enter a valid ID for the brewer")
         while is_valid == False:
             for x in self.round_data:
-                for y in x:
-                    if y.get("name") == person:
-                        is_valid = True
+                print(x.get('PID')== person)
+                if x.get("PID") == person:
+                    person = int(person)
+                    is_valid = True
+                    break
+            if is_valid == False:
+                tmp = input("The name of the brewer must also be present in the round, press 0 to cancel adding a brewer")
+                if tmp == "0":
+                    break          
         self.brewer = person
